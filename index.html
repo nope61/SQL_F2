@@ -58,7 +58,7 @@
         }
     </style>
 </head>
-<body class="text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+<body class="text-slate-800 antialiased min-h-screen flex flex-col">
 
     <!-- Header Banner -->
     <header class="bg-gradient-to-r from-primary-600 via-primary-500 to-amber-500 text-white shadow-md">
@@ -500,7 +500,7 @@
                         </div>
                         <div class="text-center">
                             <h3 class="text-base font-bold text-slate-800">解鎖文理書院電腦科教師後台</h3>
-                            <p class="text-xs text-slate-500 mt-1">請輸入隨附於實習指南 中的教師管理密碼。</p>
+                            <p class="text-xs text-slate-500 mt-1">請輸入隨附於實習指南 Canvas 中的教師管理密碼。</p>
                         </div>
                         <div class="w-full space-y-2">
                             <input type="password" id="teacherPasswordInput" placeholder="請輸入管理密碼..." class="w-full p-3 bg-slate-50 border border-slate-200 text-sm font-semibold rounded-2xl text-center focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-100">
@@ -508,7 +508,7 @@
                                 驗證教師身份 (Verify Identity)
                             </button>
                         </div>
-                        <span class="text-[10px] text-slate-400">提示：請向電腦科老師查詢密碼</span>
+                        <span class="text-[10px] text-slate-400">提示：密碼為 <b>hcccomputer</b></span>
                     </div>
 
                     <!-- Gate 2: Live Monitor Dashboard (Unlocked) -->
@@ -636,7 +636,6 @@
         ];
 
         // 100 Practice Questions (20 Qs per Chapter, last 5 are handwritten typing challenges)
-        // correct is initially 0 (Option A) and options/rationales are shuffled programmatically on load.
         const quizData = {
             1: [
                 {q: "在 SQL 查詢中，代表「選取所有欄位」的萬用符號是？", code: "SELECT ____ FROM store_products;", options: ["*", "ALL", "&", "#"], correct: 0, hint: "這個符號就像是繁星一樣，代表『所有欄位』。", rationale: ["正確！星號 `*` 代表選取全部欄位。", "錯誤。ALL 不是選取欄位的萬用字元，它是其他進階功能關鍵字。", "錯誤。`&` 不是 SQL 萬用欄位符號。", "錯誤。`#` 主要在某些 SQL 中用於註釋，而非選取欄位。"]},
@@ -650,7 +649,7 @@
                 {q: "執行「SELECT id, product_name, category FROM store_products;」，最左側顯示的第一列欄位會是？", options: ["id", "product_name", "category", "price"], correct: 0, hint: "這與查詢中 SELECT 後面寫的第一個欄位名對應。", rationale: ["正確！你寫在最前面的欄位 `id`，就會在結果中顯示在最左邊的第一行。", "錯誤。`product_name` 在本次查詢中排在第二位。", "錯誤。`category` 排在第三位。", "錯誤。`price` 欄位根本沒有出現在 SELECT 指定欄位中。"]},
                 {q: "執行「SELECT price, category FROM store_products;」，結果會有多少個欄位？", options: ["2 個", "5 個", "6 個", "10 個"], correct: 0, hint: "數一數你一共要求 SELECT 的欄位名數目。", rationale: ["正確！你只請求了 `price` 和 `category` 兩個欄位，所以結果只有兩列。", "錯誤。這是一張表原始欄位的數量，而非查詢後的欄位數。", "錯誤。資料表原本有 6 個欄位，但查詢結果只保留請求的 2 個。", "錯誤。這是回傳的記錄行數，非欄位列數。"]},
                 {q: "關於「SELECT * FROM store_products;」的敘述，下列何者正確？", options: ["它僅從資料庫讀取資料，不會修改資料庫內原有的數據", "它會清空資料表裡面的所有東西", "它會隨機刪除商品", "它會在資料庫裡新增一筆空資料"], correct: 0, hint: "SELECT 是一種類型為 'Query'（查詢）的唯讀操作。", rationale: ["正確！SELECT 字典式唯讀，只讀不改，非常安全。", "錯誤。SELECT 不具備寫入或刪除數據的破壞力。", "錯誤。查詢動作裝修不會刪除資料。", "錯誤。新增資料使用的是 `INSERT`，而非 `SELECT`。"]},
-                {q: "如果想在一次查詢中選取三個欄位：id, price, stock，欄位之間要如何連接？", options: ["SELECT id, price, stock FROM store_products;", "SELECT id and price and stock FROM store_products;", "SELECT id + price + stock FROM store_products;", "SELECT id/price/stock FROM store_products;"], correct: 0, hint: "多欄位要用逗號分隔。", rationale: ["正確！標準 SQL 語法用半形逗號 `,` 分開不同的欄位名稱。", "錯誤。使用 `and` 會導致語法錯誤。", "錯誤。`+` 是算術相加運算，不適用於分隔不同的欄位。", "錯誤。 `/` 會進行除法數學計算，而非分隔欄位。"]},
+                {q: "如果想在一次查詢中選取三個欄位：id, price, stock，欄位之間要如何連接？", options: ["SELECT id, price, stock FROM store_products;", "SELECT id and price and stock FROM store_products;", "SELECT id + price + stock FROM store_products;", "SELECT id/price/stock FROM store_products;"], correct: 0, hint: "多欄位要用逗號分隔。", rationale: ["正確！標準 SQL 語法用半形逗號 `,` 分開不同的欄位名稱。", "錯誤。使用 `and` 會導致語法錯誤。", "錯誤。`+` 是算術相加運算，不適用於分隔不同的欄位。", "錯誤。`/` 會進行除法數學計算，而非分隔欄位。"]},
                 {q: "若執行一個 nonexistent 的欄位，例如「SELECT color FROM store_products;」，會發生什麼事？", options: ["資料庫系統會報錯，指出該欄位不存在", "會自動為每樣商品新增一個名為 color 的白色屬性", "回傳空表格，但不報錯", "程式會直接卡死閃退"], correct: 0, hint: "資料庫是非常嚴謹的，輸入未定義的欄位就像輸入了無效地址。", rationale: ["正確！系統會因為找不到這個欄位而拋出無效欄位錯誤（Invalid column）。", "錯誤。SELECT 是唯讀查詢，永遠不會主動修改或定義新的欄位表結構。", "錯誤。因為語法/欄位不正確，解析器無法執行並會輸出報錯。", "錯誤。資料庫管理系統（DBMS）會返回友好的錯誤代碼，不會導致系統閃退。"]},
                 {q: "若將 SELECT 語句中的 FROM 寫錯成 FORM，會發生什麼？", options: ["語法錯誤，查詢無法執行", "SQL 系統會自動辨識並幫你修復", "表格會變成一個輸入表單（Form）", "正常執行，沒有影響"], correct: 0, hint: "SQL 的關鍵字拼寫必須精準一致。", rationale: ["正確！`FORM` 不是合法的 SQL 關鍵字，會導致 Syntax Error（語法錯誤）。", "錯誤。大部分夾雜拼寫錯誤的引擎不會猜測關鍵字。", "錯誤。不會將表格轉換成網頁 form 輸入框。", "錯誤。拼寫錯誤必定無法正常執行。"]},
                 {q: "如果有一條 SQL 是「SELECT last_restock FROM store_products;」，這主要用來查詢商品的什麼？", options: ["最後補貨日期", "保質期時間", "商品的庫存", "商品的編號"], correct: 0, hint: "last 代表最後，restock 代表重新進貨、補貨。", rationale: ["正確！`last_restock` 在此資料表中代表「最後補貨日期」。", "錯誤。資料表中不包含保質期這個欄位。", "錯誤。庫存是對應 `stock` 欄位。", "錯誤。商品編號是對應 `id` 欄位。"]},
@@ -664,12 +663,12 @@
                 {q: "當你想過濾資料，留下符合特定條件的記錄時，應在 FROM 後面使用什麼子句？", options: ["WHERE", "GROUP BY", "ORDER BY", "HAVING"], correct: 0, hint: "這個關鍵字的英文本義是「在哪裡、在什麼條件下」。", rationale: ["正確！`WHERE` 子句用於在 SQL 中設置過濾網條件。", "錯誤。`GROUP BY` 用於分組統計。", "錯誤。`ORDER BY` 用於排序，而非過濾。", "錯誤。`HAVING` 用於分組數據過濾。"]},
                 {q: "執行「SELECT * FROM store_products WHERE category = '飲品';」會篩選出多少條記錄？", options: ["3 條", "2 條", "5 條", "10 條"], correct: 0, hint: "數一下左側表中 category 為「飲品」的商品有：巧克力牛奶 (id 2)、運動飲料 (id 7)、礦泉水 (id 9) 。", rationale: ["正確！一共 3 條：ID 2、7、9 符合類別為 '飲品'。", "錯誤。不止 2 條符合，請再仔細數數。", "錯誤。5 條符合的是 '文具' 分類。", "錯誤。10 條是全表數量。"]},
                 {q: "如何過濾出價格「小於或等於 20 元」的商品？", options: ["WHERE price <= 20", "WHERE price < 20", "WHERE price =< 20", "WHERE price UNDER 20"], correct: 0, hint: "SQL 中的「小於或等於」符號，是將小於號放在等號前面（<=）。", rationale: ["正確！`<=` 是標準的小於等於運算符。", "錯誤。這不包含剛好等於 20 元的商品。", "錯誤。SQL 中沒有 `=<` 這種寫法。", "錯誤。`UNDER` 不是 SQL 中合法的數學運算符。"]},
-                {q: "「BETWEEN 15 AND 30」這個過濾網，在 SQL 中是否包含 15 和 30 這兩個端點數值本身？", options: ["開含，這是一個閉區間（>= 15 且 <= 30）", "不包含，這是一個開區間（> 15 且 < 30）", "只包含 15，不包含 30", "只包含 30，不包含 15"], correct: 0, hint: "這是一個在考試中極易答錯的概念！BETWEEN 在 SQL 中等同於同時使用 >= 和 <=。", rationale: ["正確！`BETWEEN a AND b` 兩端點數值均會包含進去。", "錯誤。15 和 30 都會被算入。", "錯誤。端點均被算入。", "錯誤。端點具有對稱包含性。"]},
+                {q: "「BETWEEN 15 AND 30」這個過濾網，在 SQL 中是否包含 15 和 30 這兩個端點數值本身？", options: ["包含，這是一個閉區間（>= 15 且 <= 30）", "不包含，這是一個開區間（> 15 且 < 30）", "只包含 15，不包含 30", "只包含 30，不包含 15"], correct: 0, hint: "這是一個在考試中極易答錯的概念！BETWEEN 在 SQL 中等同於同時使用 >= 和 <=。", rationale: ["正確！`BETWEEN a AND b` 兩端點數值均會包含進去。", "錯誤。15 和 30 都會被算入。", "錯誤。端點均被算入。", "錯誤。端點具有對稱包含性。"]},
                 {q: "若想找出庫存量（stock）「剛好等於 0」的缺貨商品，WHERE 條件應該怎麼寫？", options: ["WHERE stock = 0", "WHERE stock IS ZERO", "WHERE stock == 0", "WHERE stock NULL"], correct: 0, hint: "SQL 中表示「等於」使用的是單一等號 =，而非雙等號 ==。", rationale: ["正確！SQL 中單等號 `=` 同時用於條件判斷。", "錯誤。`IS ZERO` 不是合法的 SQL 語法。", "錯誤。`==` 在標準 SQL 中會報錯。", "錯誤。`NULL` 代表未知或未填寫。"]},
                 {q: "若想排除「飲品」類別的商品，即挑選類別「不等於飲品」的所有資料，下列何者為常用且相容性最高的符號？", options: ["<>", "!=", "NOT =", "UNLIKE"], correct: 0, hint: "在標準 SQL 中，由一對尖括號（小於號與大於號相向）拼成的符號代表「不等於」。", rationale: ["正確！`<>` 是標準 SQL 的不等於符號，大部分資料庫都完美相容。", "錯誤。`!=` 常用於程式代碼中，而標準 SQL 首選 `<>`。", "錯誤。沒有 `NOT =` 這種組合寫法。", "錯誤。`UNLIKE` 不是合法的 SQL 運算符。"]},
                 {q: "若想找出分類為「文具」且價格小於 15 的商品，我們應該使用哪一個邏輯運算符連接這兩個條件？", options: ["AND", "OR", "BUT", "WITH"], correct: 0, hint: "兩個條件必須同時成立（必須是文具，而且價格還要小於 15）。", rationale: ["正確！`AND` 要求其左右兩邊的條件必須同時為真。", "錯誤。`OR` 只要其中一個條件成立即可。", "錯誤。SQL 中沒有 `BUT` 邏輯運算符。", "錯誤。`WITH` 常用作公共表表達式，不是邏輯過濾連接詞。"]},
                 {q: "若有 SQL 為「SELECT * FROM store_products WHERE price < 15 OR category = '飲品';」，以下哪一項商品不會被選出？", options: ["自動鉛筆 (價格 15，類別 文具)", "原子筆(黑) (價格 10，類別 文具)", "運動飲料 (價格 25，類別 飲品)", "礦泉水 (價格 10，類別 飲品)"], correct: 0, hint: "逐個帶入公式：只要『價格小於 15』或『是飲品』其一滿足即可。自動鉛筆價格是 15（不小於 15），且是文具（不是飲品）。", rationale: ["正確！自動鉛筆兩邊的條件都不滿足，因此被排除在結果外。", "錯誤。原子筆黑價格 10 小於 15，滿足前半部條件，會被選出。", "錯誤。雖然運動飲料價格 25 不小於 15，但它是飲品，滿足後半部條件，會被選出。", "錯誤。礦泉水價格 10（符合小於 15）且是飲品，雙重滿足。"]},
-                {q: "執行「SELECT * FROM store_products WHERE stock BETWEEN 50 AND 100;」，會有多沙項商品符合條件？", options: ["3 項", "2 項", "4 項", "0 項"], correct: 0, hint: "符合 the 商品有：自動鉛筆 (50) 、原子筆黑 (100) 、原子筆紅 (80) 。", rationale: ["正確！這三樣商品的庫存裝配在 50 到 100 之間。", "錯誤。邊界值 50 和 100 也會被包含進來。", "錯誤。只有三項商品符合。", "錯誤。有符合商品存在。"]},
+                {q: "執行「SELECT * FROM store_products WHERE stock BETWEEN 50 AND 100;」，會有多沙項商品符合條件？", options: ["3 項", "2 項", "4 項", "0 項"], correct: 0, hint: "符合的商品有：自動鉛筆 (50) 、原子筆黑 (100) 、原子筆紅 (80) 。", rationale: ["正確！這三樣商品的庫存裝配在 50 到 100 之間。", "錯誤。邊界值 50 和 100 也會被包含進來。", "錯誤。只有三項商品符合。", "錯誤。有符合商品存在。"]},
                 {q: "執行以下過濾指令後，回傳的結果行數是多少？\nSELECT * FROM store_products WHERE category = '飲品' AND price > 30;", options: ["0 條", "1 條", "3 條", "10 條"], correct: 0, hint: "我們店裡有賣『超過 30 元』的飲品嗎？(最貴的運動飲料也才 25 元。)", rationale: ["正確！沒有任何一項飲品價格高於 30，因此 AND 邏輯最終回傳空值。", "錯誤。沒有任何一項商品滿足此雙重條件。", "錯誤。雖然全店有 3 項飲品，但沒有一項價格大於 30。", "錯誤。全表沒有任何一行能通過這個過濾網。"]},
                 {q: "當 WHERE 條件的值是文字字串（例如 '文具'）時，這個值在 SQL 中必須用什麼符號包起來？", options: ["單引號 ' '", "圓括號 ( )", "大括號 { }", "角括號 < >"], correct: 0, hint: "這是程式語言中標識『字串（Text）』的標準符號。", rationale: ["正確！SQL 中字串必須用單引號 `'`（或某些資料庫支援的雙引號 `\"`）括起。", "錯誤. 圓括號用於優先級控制。", "錯誤。大括號不適用於 SQL 中的字串標示。", "錯誤。角括號在 SQL 中多用作比較運算符（如不等於 <>）。"]},
                 {q: "執行「SELECT * FROM store_products WHERE category = '食品' AND price = 10;」，結果會有多少筆數據？", options: ["0 筆", "2 筆", "1 筆", "3 筆"], correct: 0, hint: "小食部有賣剛好『10 元的食品』嗎？(10 元的只有原子筆 and 礦泉水，但它們不是食品。)", rationale: ["正確！在食品中（鮮奶吐司 25、三明治 35）沒有任何價格等於 10 的商品，故結果為 0 筆。", "錯誤。10 元的商品雖然有，但不是食品類別。", "錯誤。沒有符合雙重條件的商品。", "錯誤。請仔細比對兩欄位的數值邏輯。"]},
@@ -708,14 +707,14 @@
                 {q: "執行「SELECT SUM(stock) FROM store_products;」計算出小食部所有商品的「庫存量總和」，結果是多少？", options: ["612", "10", "19.5", "500"], correct: 0, hint: "這是一個加總計算：12 + 15 + 50 + 100 + 80 + 5 + 0 + 120 + 200 + 30 = 612。", rationale: ["正確！全店所有商品的庫存數累加總和確實為 612。", "錯誤。10 是商品種類的總數。", "錯誤。19.5 是商品的平均售價。", "錯誤。這只是一個大約計算。"]},
                 {q: "「SELECT MAX(price) FROM store_products;」能找出小食部中最貴的商品價格，其數值為多少元？", options: ["40 元", "35 元", "25 元", "120 元"], correct: 0, hint: "看一看哪一個商品的 price 數值最大。最高的是「筆記本 (id 10)」，售價為 40 元。", rationale: ["正確！全店單價最高的商品就是筆記本（40 元）。", "錯誤。35 元是第二貴的三明治。", "錯誤. 25 元是鮮奶吐司與運動飲料的價格。", "錯誤。120 是橡皮擦的庫存量。"]},
                 {q: "在 SQL 中，關鍵字「AS」的主要功用是什麼？", options: ["將計算結果的欄位標題重新命名 (起別名 Alias)", "將資料表永久重新命名保存", "把資料庫轉換成試算表格式", "進行乘法與除法的混合運算"], correct: 0, hint: "AS 英文全稱是 'As'，代表『將其視為...顯示』。", rationale: ["正確！AS 用於臨時自定義查詢結果的顯示欄位名稱。", "錯誤。AS 只是暫時修改本次查詢輸出的標題。", "錯誤。AS 無法改變資料庫存儲格式。", "錯誤。乘除法直接使用 `*` and `/` 即可。"]},
-                {q: "若執行「SELECT product_name, price - 3 FROM store_products;」（校慶特賣降價 3 元），這會改變資料庫中商品的「物理原始售價」嗎？", options: ["不會，它只改變這次查詢展示出來的數字，不影響資料庫內的原價", "會，資料庫原價會自動被永久扣除 3 元", "會，但只會扣除 1 天，之後自動回復", "這句 SQL 語法是錯誤的，不能在 SELECT 中做減法"], correct: 0, hint: "SELECT 裝作唯讀的展示。任何數學運算也飾演臨時算給你看。", rationale: ["正確！SELECT 永遠是唯讀操作，不具備修改物理硬碟數據的功能。", "錯誤。若要永久修改必須使用 UPDATE 指令。", "錯誤。資料庫沒有自動回復設計。", "錯誤。在 SELECT 中進行算術運算。"]},
+                {q: "若執行「SELECT product_name, price - 3 FROM store_products;」（校慶特賣降價 3 元），這會改變資料庫中商品的「物理原始售價」嗎？", options: ["不會，它只改變這次查詢展示出來的數字，不影響資料庫內的原價", "會，資料庫原價會自動被永久扣除 3 元", "會，但只會扣除 1 天，之後自動回復", "這句 SQL 語法是錯誤的，不能在 SELECT 中做減法"], correct: 0, hint: "SELECT 裝作唯讀的展示。任何數學運算也只是臨時算給你看。", rationale: ["正確！SELECT 永遠是唯讀操作，不具備修改物理硬碟數據的功能。", "錯誤。若要永久修改必須使用 UPDATE 指令。", "錯誤。資料庫沒有自動回復設計。", "錯誤。在 SELECT 中進行算術運算。"]},
                 {q: "小食部所有商品的「平均售價」（AVG）計算出來是多少元？", options: ["19.5 元", "20 元", "15 元", "25 元"], correct: 0, hint: "全店 10 個商品總價為：25+20+15+10+10+35+25+5+10+40 = 195 元。平均價格為 195 / 10 = 19.5。", rationale: ["正確！全店 10 件商品總價 195 元，平均價格為 19.5 元。", "錯誤。20 元是個別商品的售價。", "錯誤。數值偏離正確平均值。", "錯誤。數值偏離正確平均值。"]},
                 {q: "手冊中提到「SELECT AVG(price) FROM store_products WHERE category = '食品';」算出來是 27 元，但食品原價為 25 元及 35 元（平均應為 30），為什麼答案是 27 呢？", options: ["因為該題是基於「校慶降價 3 元」特賣活動後的數值（即 22 元與 32 元）來計算的", "因為 SQL 在計算平均數時，會自動隨機扣除 10% 的稅收", "開於計算機系統出現了四捨五入的重大 bug", "因為三明治賣出了 5 個，吐司賣出 12 個，這是加權平均值"], correct: 0, hint: "回顧第四章範例 10：校慶降價一律減 3 元。在此基礎下，吐司 25-3=22，三明治 35-3=32。平均為 (22+32)/2 = 27 元。", rationale: ["正確！這解釋了學校工作紙答案的由來，是套用了降價 3 元後的平均值。", "錯誤。資料庫引擎非常嚴謹，絕不會擅自扣除任何稅率。", "錯誤。計算極其精準，非 Bug。", "錯誤。AVG 函數只會針對欄位行數求算術平均。"]},
                 {q: "若想計算店內所有商品的「總資產總和」（即每樣商品的 價格 * 庫存 的總加總），SQL 應該怎麼寫？", options: ["SELECT SUM(price * stock) FROM store_products;", "SELECT SUM(price) * SUM(stock) FROM store_products;", "SELECT price * stock SUM FROM store_products;", "SELECT SUM(price) AND SUM(stock) FROM store_products;"], correct: 0, hint: "這需要對每一行先進行 price * stock 相乘，然後再將所有行的相乘結果用 SUM() 函數加起來。", rationale: ["正確！SQL 支援在聚合函數內部進行每行的數學運算。", "錯誤。這代表將『所有單價的和』乘以『所有庫存的和』，會算出無意義的超大數字。", "錯誤。語法錯誤，缺少 SUM 函數外包圍括號。", "錯誤。AND 連接詞不能用來將數值進行總和。"]},
                 {q: "執行「SELECT MIN(stock) FROM store_products;」會找出店鋪中最少庫存量，其結果數值為多少？", options: ["0", "5", "12", "1"], correct: 0, hint: "看一下左邊哪一個商品的 stock 最小。是運動飲料（庫存 0）。", rationale: ["正確！店鋪中最低庫存是 0（運動飲料缺貨）。", "錯誤。5 是三明治的庫存，但不是最小值。", "錯誤。12 是鮮奶吐司的庫存。", "錯誤。本表沒有庫存剛好為 1 的商品。"]},
                 {q: "執行以下 SQL 後，顯示的結果欄位標題會變成什麼？\nSELECT product_name, price + 10 AS '漲價後價格' FROM store_products;", options: ["漲價後價格", "price + 10", "price", "AS"], correct: 0, hint: "AS 後面單引號包起來的字串就是輸出的『新別名標題』。", rationale: ["正確！AS 起別名，成功將計算欄位重新命名顯示為 '漲價後價格'。", "錯誤。有加 AS 就會被覆蓋顯示別名。", "錯誤。這是原始欄位名。", "錯誤。AS 是關鍵字。"]},
                 {q: "執行以下 SQL，得出的「最平的價錢」是多少元？\nSELECT MIN(price) AS '最平的價錢' FROM store_products;", options: ["5 元 (若在校慶降價 3 元的特賣基礎下則為 2 元)", "10 元", "0 元", "15 元"], correct: 0, hint: "看一看原價最低的是「橡皮擦 (id 8)」原價 5 元。如果扣除 3 元，則最平的價格會變成 2 元。工作紙答案為 2 元。", rationale: ["正確！原價最低是橡皮擦的 5 元，但在套用降價 3 元後結果為 2 元。", "錯誤。10 元是原子筆和礦泉水，不是最低單價。", "錯誤。沒有商品價格會是 0 元。", "錯誤。15 元不是最低價。"]},
-                {q: "SQL 進行乘法數學運算時，必須使用以下哪一個程式開發常用符號？", options: ["星號 *", "乘號 x", "點號 .", "百分比號 %"], correct: 0, hint: "這與電腦科學 and 各大程式語言中的乘號一致。", rationale: ["正確！`*` 在 SQL 中作為乘法算術運算符。", "錯誤。英文字母 `x` 不能被 SQL 解析器識別。", "錯誤. 點號用於層級連接，非乘法。", "錯誤。百分比號在數學中代表取餘數，不代表相乘。"]},
+                {q: "SQL 進行乘法數學運算時，必須使用以下哪一個程式開發常用符號？", options: ["星號 *", "乘號 x", "點號 .", "百分比號 %"], correct: 0, hint: "這與電腦科學 and 各大程式語言中的乘號一致。", rationale: ["正確！`*` 在 SQL 中作為乘法算術運算符。", "錯誤。英文字母 `x` 不能被 SQL 解析器識別。", "錯誤。點號用於層級連接，非乘法。", "錯誤。百分比號在數學中代表取餘數，不代表相乘。"]},
                 {q: "SQL 進行除法數學運算時，必須使用哪一個符號？", options: ["正斜線 /", "反斜線 \\", "除號 ÷", "百分比號 %"], correct: 0, hint: "鍵盤上位於 Shift 左側或數字鍵盤上的除法分割符號。", rationale: ["正確！`/` 代表除法算術運算符。", "錯誤。反斜線不是除法符號。", "錯誤。資料庫無法解析傳統數學除號 `÷`。", "錯誤。百分比號與除法運算關聯。"]},
                 {q: "當資料表某行含有「NULL」（代表空值/未知）時，聚合函數如 SUM()、AVG() 在計算時會如何處理它？", options: ["自動忽略該 NULL 值，不納入計算", "會直接報錯並中斷執行", "會把 NULL 當成數值 0 來相加計算", "會把整個總和都變成空值"], correct: 0, hint: "SQL 擁有健全的空值處理機制，聚合函數會自動跳過 NULL 記錄以防干擾統計。", rationale: ["正確！標準 SQL 聚合函數（如 SUM, AVG, MIN, MAX）在統計時都會自動過濾、忽略 NULL 值。", "錯誤。不會報錯。", "錯誤。不會把它當作 0，它是被直接跳過。", "錯誤。只有在整列全部都是 NULL 時，SUM 的結果才會是 NULL。"]},
                 {q: "執行「SELECT SUM(price) FROM store_products WHERE category = '文具';」，原價加總的總金額是多少元？", options: ["80 元", "60 元", "15 元", "195 元"], correct: 0, hint: "挑選分類為「文具」的商品價格：自動鉛筆 15 + 原子筆黑 10 + 原子筆紅 10 + 橡皮擦 5 + 筆記本 40 = 80。", rationale: ["正確！所有文具類商品的原價總和剛好是 80 元。", "錯誤。這漏加了部分文具商品價格。", "錯誤。這只是單一自動鉛筆的價格。", "錯誤。這是全店 10 件商品原價總和。"]},
@@ -735,7 +734,7 @@
                 {q: "執行「SELECT id FROM store_products ORDER BY id DESC;」回傳的結果中，排在第一個的商品 ID 是多少？", options: ["10", "1", "0", "9"], correct: 0, hint: "ID 從 1 到 10 進行降序（由大到小）排列，最上面的當然是最大的那個數。", rationale: ["正確！降序排列下，最大值 10 排在最前面。", "錯誤. 1 是最小值，在 DESC 排列下會排在最後一個。", "錯誤。本表沒有 ID 為 0 的商品。", "錯誤。9 雖然很大，但在 10 之後。"]},
                 {q: "若想將所有商品按照「庫存量從多到少」（降序）排序，ORDER BY 部分應該怎麼寫？", options: ["ORDER BY stock DESC", "ORDER BY stock ASC", "SORT BY stock HIGH", "ORDER BY price DESC"], correct: 0, hint: "庫存欄位名是 stock，從多到少是降序 DESC。", rationale: ["正確！這樣能讓庫存最大的礦泉水（200）排在最前。", "錯誤。這會使最缺貨的運動飲料（0）排在最前面。", "錯誤。`SORT BY` 和 `HIGH` 都不是標準 SQL 的排序結構。", "錯誤。這會按照價格而非庫存排列。"]},
                 {q: "執行「SELECT * FROM store_products WHERE category = '食品' ORDER BY price ASC;」後，最先被列出的食品是？", options: ["鮮奶吐司 (價格 25)", "三明治 (價格 35)", "自動鉛筆", "巧克力牛奶"], correct: 0, hint: "食品只有鮮奶吐司 (25) 和三明治 (35)。按價格升序（從小到大），誰的價格低誰就排第一。", rationale: ["正確！鮮奶吐司單價 25 小於三明治的 35，故升序排列第一。", "錯誤。三明治單價 35 高於吐司，會排在後面。", "錯誤。自動鉛筆是文具，不符合 WHERE 條件。", "錯誤。巧克力牛奶是飲品，會被 WHERE 條件先過濾掉。"]},
-                {q: "若想按「最後補貨日期（last_restock）」由最舊到最新排序（即日期從小到大），應使用哪一條指令？", options: ["ORDER BY last_restock 與 last_restock ASC 效果相同，均能按升序排列", "ORDER BY last_restock DESC", "ORDER BY last_restock", "ORDER BY last_restock ASC"], correct: 0, hint: "從小到大是升序。而 ORDER BY 預設不寫就是升序。所以寫 ASC 與不寫 ASC 效果完全相同。", rationale: ["正確！因為預設排序方向即為 ASC，所以寫不寫效果皆為最舊到最新。", "錯誤。這會使最新進貨的日期排在最舊的前面。", "錯誤。這句省略了 ASC，同樣也是升序。", "錯誤。這句完全獲得正確的寫法。"]},
+                {q: "若想按「最後補貨日期（last_restock）」由最舊到最新排序（即日期從小到大），應使用哪一條指令？", options: ["第 1 及第 3 選項均正確", "ORDER BY last_restock DESC", "ORDER BY last_restock", "ORDER BY last_restock ASC"], correct: 0, hint: "從小到大是升序。而 ORDER BY 預設不寫就是升序。所以寫 ASC 與不寫 ASC 效果完全相同。", rationale: ["正確！因為預設排序方向即為 ASC，所以寫不寫效果皆為最舊到最新。", "錯誤。這會使最新進貨的日期排在最舊的前面。", "錯誤。這句省略了 ASC，同樣也是升序。", "錯誤。這句完全獲得正確的寫法。"]},
                 {q: "在標準 SQL 的執行順序中，ORDER BY 子句應該寫在查詢語句的什麼位置？", options: ["寫在整條 SQL 語句的最末尾", "寫在 FROM 子句的前面", "寫在 WHERE 子句的前面", "可以隨意擺放，沒有限制"], correct: 0, hint: "它是我們拿到數據、篩選完、統計完之後，進行最後『梳頭排隊』展示的步驟，所以放在最後面。", rationale: ["正確！ORDER BY 在 SQL 中排序是最後一步，必須寫在最末尾。", "錯誤。不可放在 FROM 之前。", "錯誤。必須先過濾 WHERE，最後才能調用 ORDER BY。", "錯誤。SQL 語法順序極其嚴格，亂放會導致報錯。"]},
                 {q: "如果多筆記錄在排序欄位上的數值完全相同（例如原子筆黑 and 紅的價格都是 10 元），SQL 在沒有指定次級排序下，會如何決定它們的順序？", options: ["順序未定義（通常取決於資料庫底層存儲順序或主鍵排序）", "系統會自動隨機打亂", "價格相同的商品會自動合併成一行顯示", "系統會直接報錯，拒絕執行"], correct: 0, hint: "資料庫不會無故打亂數據，但也不會為其做額外自作主張的排序，一般保持其實體讀取時的預設順序。", rationale: ["正確！這被稱為不穩定排序，預設順序依賴底層物理或主鍵存取。", "錯誤。資料庫不會浪費算力去主動隨機打亂數據。", "錯誤。數據行不會自動合併。", "錯誤。這完全合法，資料庫會正常顯示。"]},
                 {q: "關於 ORDER BY 子句，下列哪一項敘述是正確的？", options: ["它只影響查詢結果在螢幕上的展示順序，不改變硬碟中資料的實體存儲順序", "它會永久性修改資料庫硬碟上的記錄順序", "它在查詢時必須配合 WHERE 才能執行", "它只能對數字欄位排序，不能對文字欄位排序"], correct: 0, hint: "SELECT 的附屬子句都只是『暫時視圖』。", rationale: ["正確！ORDER BY 只是唯讀格式化展示，不會重組硬碟上的物理磁區結構。", "錯誤。資料庫不會因為一條查詢而隨意修改物理存儲順序。", "錯誤。即使沒有 WHERE，ORDER BY 也能直接對全表進行排序。", "錯誤。它完全可以對文字欄位進行排序。"]},
@@ -816,147 +815,1024 @@
             6: "SELECT product_name, price * stock AS total_value FROM store_products WHERE category = '食品' AND price > 20 ORDER BY total_value DESC;"
         };
 
-        // ==================== PREMIUM AUTO-DISMISSING TOAST NOTIFICATIONS ====================
-        function showNotification(msg, type = 'info') {
-            let container = document.getElementById('toast-container');
-            if (!container) {
-                container = document.createElement('div');
-                container.id = 'toast-container';
-                container.className = 'fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none max-w-sm w-full';
-                document.body.appendChild(container);
+        // ==================== FRONT-END COMPONENT CONTROLLER FUNCTIONS ====================
+        function populateDatabaseTable() {
+            const tbody = document.getElementById('databaseTableBody');
+            tbody.innerHTML = '';
+            storeProducts.forEach(prod => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-50 transition-colors border-b border-slate-100';
+                tr.innerHTML = `
+                    <td class="px-3 py-2 text-slate-900 font-bold">${prod.id}</td>
+                    <td class="px-3 py-2 text-slate-700 font-medium">${prod.product_name}</td>
+                    <td class="px-3 py-2 text-slate-500">${prod.category}</td>
+                    <td class="px-3 py-2 text-primary-600 font-bold">${prod.price}元</td>
+                    <td class="px-3 py-2 text-slate-600">${prod.stock}</td>
+                    <td class="px-3 py-2 text-slate-400 text-[10px]">${prod.last_restock}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            const p = document.getElementById(`panel-${tabId}`);
+            if (p) p.classList.remove('hidden');
+
+            const btns = ['revision', 'quizzes', 'playground', 'report', 'teacher'];
+            btns.forEach(btn => {
+                const el = document.getElementById(`tab-btn-${btn}`);
+                if (el) el.className = "flex-1 min-w-[120px] py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 text-slate-600 hover:bg-slate-50";
+            });
+
+            const activeEl = document.getElementById(`tab-btn-${tabId}`);
+            if (activeEl) {
+                activeEl.className = "flex-1 min-w-[120px] py-3 px-4 rounded-xl text-sm font-bold flex items-center justify-center gap-2 transition-all duration-200 bg-primary-500 text-white shadow-md shadow-primary-500/20";
             }
+        }
+
+        function switchRevisionChapter(chapId) {
+            const chap = revisionChapters[chapId];
+            if (!chap) return;
+            const contentDiv = document.getElementById('revisionChapterContent');
             
-            let toast = document.createElement('div');
-            toast.className = `p-4 rounded-2xl shadow-lg border text-xs font-semibold flex items-center gap-2 transform translate-y-2 opacity-0 transition-all duration-300 pointer-events-auto bg-white`;
+            let examplesHTML = '';
+            chap.examples.forEach(ex => {
+                examplesHTML += `
+                    <div class="p-3 bg-slate-50 border border-slate-100 rounded-2xl flex flex-col gap-2">
+                        <span class="text-xs font-semibold text-slate-600 flex items-center gap-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-primary-500"></span>
+                            ${ex.desc}
+                        </span>
+                        <div class="flex items-center justify-between gap-4 bg-slate-900 p-3 rounded-xl font-mono text-xs text-amber-400 overflow-x-auto shadow-inner">
+                            <code>${ex.code}</code>
+                            <button onclick="tryQueryLive('${ex.code}')" class="text-[10px] bg-primary-500 hover:bg-primary-600 text-white font-bold py-1 px-2.5 rounded-lg transition-colors font-sans select-none">
+                                一鍵即試
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            contentDiv.innerHTML = `
+                <div class="bg-gradient-to-br from-primary-50/40 to-amber-50/20 p-5 rounded-3xl border border-primary-100/50 space-y-2 animate-fade-in">
+                    <h3 class="text-base font-bold text-slate-800 flex items-center gap-2">
+                        <span class="text-xs bg-primary-500 text-white px-2 py-0.5 rounded-full">重點章節</span>
+                        ${chap.title}
+                    </h3>
+                    <p class="text-xs leading-relaxed text-slate-600 whitespace-pre-line">${chap.concept}</p>
+                </div>
+
+                <div class="space-y-2">
+                    <h4 class="text-xs font-bold text-slate-500">基本語法結構</h4>
+                    <div class="p-3 bg-slate-900 rounded-2xl font-mono text-xs text-emerald-400 border border-slate-800 shadow-sm">
+                        <code>${chap.syntax}</code>
+                    </div>
+                </div>
+
+                <div class="space-y-3">
+                    <h4 class="text-xs font-bold text-slate-500">實戰範例演示</h4>
+                    ${examplesHTML}
+                </div>
+
+                <div class="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-start gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <p class="text-[11px] text-slate-500 leading-relaxed">${chap.practice}</p>
+                </div>
+            `;
+        }
+
+        function tryQueryLive(code) {
+            switchTab('playground');
+            const consInput = document.getElementById('sqlConsoleInput');
+            if (consInput) consInput.value = code;
+            executeSandboxSQL();
+        }
+
+        function calculateOverallPct() {
+            let totalChaps = 0;
+            let totalCorrect = 0;
+            for (let i = 1; i <= 5; i++) {
+                if (userCompletedGrades[i] !== null) {
+                    totalChaps++;
+                    totalCorrect += userCompletedGrades[i];
+                }
+            }
+            return totalChaps > 0 ? Math.round((totalCorrect / (totalChaps * 20)) * 100) : 0;
+        }
+
+        function updateTotalProgress() {
+            let totalDone = 0;
+            let sumScore = 0;
+            for (let i = 1; i <= 5; i++) {
+                if (userCompletedGrades[i] !== null) {
+                    totalDone++;
+                    sumScore += userCompletedGrades[i];
+                }
+            }
+
+            const percentComplete = Math.round((totalDone / 5) * 100);
             
-            if (type === 'success') {
-                toast.className += ' border-emerald-100 text-emerald-800 bg-emerald-50';
-                toast.innerHTML = `
-                    <svg class="h-4 w-4 text-emerald-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>${msg}</span>
-                `;
-            } else if (type === 'error') {
-                toast.className += ' border-rose-100 text-rose-800 bg-rose-50';
-                toast.innerHTML = `
-                    <svg class="h-4 w-4 text-rose-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>${msg}</span>
-                `;
+            document.getElementById('totalProgressText').innerText = `${percentComplete}%`;
+            document.getElementById('totalProgressBar').style.width = `${percentComplete}%`;
+
+            const badgeEl = document.getElementById('rankBadge');
+            if (totalDone === 5) {
+                if (sumScore >= 90) {
+                    badgeEl.innerText = "SQL 終極大師";
+                    badgeEl.className = "text-xs font-bold text-white bg-amber-500 px-2.5 py-1 rounded-full shadow-md shadow-amber-500/20";
+                } else if (sumScore >= 60) {
+                    badgeEl.innerText = "SQL 特級店長";
+                    badgeEl.className = "text-xs font-bold text-white bg-indigo-500 px-2.5 py-1 rounded-full shadow-md shadow-indigo-500/20";
+                } else {
+                    badgeEl.innerText = "SQL 認證助理";
+                    badgeEl.className = "text-xs font-bold text-white bg-slate-600 px-2.5 py-1 rounded-full";
+                }
+            } else if (totalDone >= 3) {
+                badgeEl.innerText = "SQL 熟練工";
+                badgeEl.className = "text-xs font-bold text-white bg-blue-500 px-2.5 py-1 rounded-full";
             } else {
-                toast.className += ' border-slate-100 text-slate-800 bg-slate-50';
-                toast.innerHTML = `
-                    <svg class="h-4 w-4 text-orange-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span>${msg}</span>
-                `;
+                badgeEl.innerText = "SQL 實習生";
+                badgeEl.className = "text-xs font-bold text-white bg-primary-500 px-2.5 py-1 rounded-full";
             }
-            
-            container.appendChild(toast);
-            
-            // Animate In
-            setTimeout(() => {
-                toast.classList.remove('translate-y-2', 'opacity-0');
-            }, 10);
-            
-            // Dismiss after 4 seconds
-            setTimeout(() => {
-                toast.classList.add('translate-y-2', 'opacity-0');
-                setTimeout(() => {
-                    toast.remove();
-                }, 300);
-            }, 4000);
         }
 
-        // ==================== DYNAMIC RUNTIME OPTION SHUFFLER ====================
-        function shuffleQuizOptions() {
-            for (let chapId in quizData) {
-                quizData[chapId].forEach(q => {
-                    if (!q.isTyping && q.options && q.options.length > 0) {
-                        // Create associated object pairs (option + rationale) to keep alignment perfect
-                        let pairs = q.options.map((opt, idx) => {
-                            return {
-                                option: opt,
-                                rationale: (q.rationale && q.rationale[idx]) ? q.rationale[idx] : ""
-                            };
+        function updateReportTab() {
+            for (let i = 1; i <= 5; i++) {
+                const score = userCompletedGrades[i];
+                const scoreEl = document.getElementById(`score-chap${i}`);
+                const percentEl = document.getElementById(`percent-chap${i}`);
+
+                if (score !== null) {
+                    scoreEl.innerText = `${score} / 20`;
+                    const pct = Math.round((score / 20) * 100);
+                    percentEl.innerText = `${pct}% 正確比率`;
+                    percentEl.className = score >= 16 ? "text-[10px] text-emerald-600 font-bold" : score >= 10 ? "text-[10px] text-amber-600 font-bold" : "text-[10px] text-rose-500 font-bold";
+                } else {
+                    scoreEl.innerText = "- / 20";
+                    percentEl.innerText = "未開始";
+                    percentEl.className = "text-[10px] text-slate-400";
+                }
+            }
+
+            const diagnosisContent = document.getElementById('diagnosisContent');
+            const remediationPlanList = document.getElementById('remediationPlanList');
+            
+            let chapsFinished = [];
+            for (let i = 1; i <= 5; i++) {
+                if (userCompletedGrades[i] !== null) chapsFinished.push(i);
+            }
+
+            if (chapsFinished.length === 0) {
+                diagnosisContent.innerHTML = `<p class="text-xs text-slate-300 leading-relaxed">你目前尚未完成 any 章節的完整自測。請到「章節自測系統」中完成至少一個章節的測驗，系統將為你精準推算出當前的 SQL 弱點！</p>`;
+                return;
+            }
+
+            let weaknesses = [];
+            let plans = [];
+
+            chapsFinished.forEach(chap => {
+                const score = userCompletedGrades[chap];
+                if (score < 16) {
+                    if (chap === 1) {
+                        weaknesses.push("你在「SELECT / FROM」基礎提取語法上有失分，特別是欄位先後顯示順序、多重欄位加逗號分割等基本編程規範。");
+                        plans.push({
+                            title: "精選練習：自選欄位練習",
+                            desc: "請在沙盒模擬器中多練習「SELECT product_name, price FROM store_products;」，習慣欄位拼寫與逗號規則。"
                         });
-                        
-                        // Capture the original correct item (originally index 0)
-                        let correctItem = pairs[q.correct];
-                        
-                        // Shuffle using Fisher-Yates
-                        for (let i = pairs.length - 1; i > 0; i--) {
-                            const j = Math.floor(Math.random() * (i + 1));
-                            [pairs[i], pairs[j]] = [pairs[j], pairs[i]];
-                        }
-                        
-                        // Locate correct option's new index post-shuffling
-                        let newCorrectIdx = pairs.indexOf(correctItem);
-                        
-                        // Map properties back
-                        q.options = pairs.map(p => p.option);
-                        if (q.rationale) {
-                            q.rationale = pairs.map(p => p.rationale);
-                        }
-                        q.correct = newCorrectIdx;
                     }
-                });
+                    if (chap === 2) {
+                        weaknesses.push("你在「WHERE」過濾條件上遇到了障礙。特別在多重邏輯（AND 同時成立、OR 擇一成立）及不等於符號 `<>` 上觀念不夠清晰。");
+                        plans.push({
+                            title: "過濾邏輯強化突破",
+                            desc: "在沙盒中實際輸入「SELECT * FROM store_products WHERE category = '文具' AND price < 15;」，思考兩組條件是如何共同篩選資料的。"
+                        });
+                    }
+                    if (chap === 3) {
+                        weaknesses.push("你對「LIKE」模糊查詢的萬用字元不夠熟練。底線 `_` 代表剛好 1 個任何字元，而百分比 `%` 代表 0 個、1 個或多個字元，兩者功能需要釐清。");
+                        plans.push({
+                            title: "文字模糊匹配實戰補救",
+                            desc: "請在沙盒打入含有底線的過濾，例如「SELECT * FROM store_products WHERE product_name LIKE '__水';」，觀察長度為三並以水結尾的規律。"
+                        });
+                    }
+                    if (chap === 4) {
+                        weaknesses.push("在「聚合統計函數」與別名「AS」上表現不穩定。可能分不清 `COUNT` 和 `SUM` 的差別（前者數行數，後者將數據累加），或者數學乘除法符號不夠熟悉。");
+                        plans.push({
+                            title: "統計與計算機概念補足",
+                            desc: "請在溫習卡中複習 AS 計算別名寫法，並利用沙盒執行「SELECT SUM(price) FROM store_products;」比對是否為 195。"
+                        });
+                    }
+                    if (chap === 5) {
+                        weaknesses.push("在「ORDER BY」排序上有不清楚。注意 ORDER BY 必須固定寫在整條 SQL 指令的最末尾，預設為 ASC（升序，低到高），降序是 DESC（高到低）。");
+                        plans.push({
+                            title: "數據多級排隊訓練",
+                            desc: "請到沙盒練習多個欄位的排序，例如「SELECT * FROM store_products ORDER BY category, price DESC;」感受第一二排序級別的原理。"
+                        });
+                    }
+                }
+            });
+
+            if (weaknesses.length === 0) {
+                diagnosisContent.innerHTML = `
+                    <div class="space-y-2">
+                        <p class="text-sm font-bold text-amber-300">🎉 天才管理員！卓越全對！</p>
+                        <p class="text-xs text-slate-200 leading-relaxed">你在所有已測章節中，答對了全部的問題！你的 SQL 解析與邏輯思維極其嚴密。你已經完全掌握了小食部管理員的所有核心技巧，可以完美經營小食部了！</p>
+                    </div>
+                `;
+                remediationPlanList.innerHTML = `
+                    <div class="col-span-2 p-5 bg-emerald-50 rounded-2xl border border-emerald-100 flex items-center gap-3">
+                        <div class="p-3 bg-emerald-500 text-white rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-emerald-800">免檢畢業認證</h4>
+                            <p class="text-xs text-emerald-600 mt-1">恭喜你！在電腦科老師的評級中，你已被列入最優秀的「免檢 SQL 大師級實習生」名冊。</p>
+                        </div>
+                    </div>
+                `;
+                return;
             }
+
+            let diagHTML = `<p class="text-xs text-slate-200 leading-relaxed">以下為你量身精算出的主要薄弱語法與思維缺陷：</p><ul class="list-disc pl-5 text-xs text-slate-100 space-y-2">`;
+            weaknesses.forEach(w => {
+                diagHTML += `<li>${w}</li>`;
+            });
+            diagHTML += `</ul>`;
+            diagnosisContent.innerHTML = diagHTML;
+
+            let plansHTML = '';
+            plans.forEach((p, idx) => {
+                plansHTML += `
+                    <div class="p-4 rounded-2xl border border-slate-200/80 bg-slate-50 space-y-1">
+                        <span class="text-[10px] font-bold text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full border border-primary-100">推薦修復方案 ${idx + 1}</span>
+                        <h4 class="text-xs font-bold text-slate-800 mt-1">${p.title}</h4>
+                        <p class="text-[11px] text-slate-500 leading-relaxed">${p.desc}</p>
+                    </div>
+                `;
+            });
+            remediationPlanList.innerHTML = plansHTML;
         }
 
-        // ==================== INITIALIZATION WORKFLOWS ====================
-        window.addEventListener('load', async () => {
-            populateDatabaseTable();
-            switchRevisionChapter(1);
-            
-            // Run option shuffler prior to any rendering to ensure randomized A, B, C, D distribution
-            shuffleQuizOptions();
-            
-            updateTotalProgress();
+        // ==================== SQL SANDBOX SIMULATOR ENGINE (PURE JS PARSER) ====================
+        function executeSandboxSQL() {
+            let queryStr = document.getElementById('sqlConsoleInput').value;
+            const resultBox = document.getElementById('sqlResultContent');
+            const statusLabel = document.getElementById('sqlResultStatus');
 
-            if (firebaseInitialized) {
-                const badge = document.getElementById('cloudSyncBadge');
-                badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-ping"></span> 正在連線...`;
-                
-                const initAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
-                
+            let cleanQuery = queryStr.trim().replace(/\s+/g, ' ');
+            if (!cleanQuery) {
+                statusLabel.innerHTML = `<span class="text-amber-500 font-bold">警告：指令為空</span>`;
+                resultBox.innerHTML = `<p class="text-xs text-amber-600">請輸入 SQL 查詢指令。</p>`;
+                return;
+            }
+
+            if (cleanQuery.endsWith(';')) {
+                cleanQuery = cleanQuery.slice(0, -1).trim();
+            }
+
+            const res = runSQLMockEngine(cleanQuery);
+
+            if (res.error) {
+                statusLabel.innerHTML = `<span class="text-rose-500 font-bold">❌ 語法出錯</span>`;
+                resultBox.innerHTML = `
+                    <div class="p-4 bg-rose-50 border border-rose-100 rounded-2xl text-xs space-y-2 font-sans">
+                        <h5 class="font-bold text-rose-700 flex items-center gap-1">
+                            模擬資料庫執行引擎報告：
+                        </h5>
+                        <p class="text-rose-600 code-font bg-white p-2.5 rounded-xl border border-rose-100 shadow-inner">${res.error}</p>
+                        <p class="text-[10px] text-slate-400">貼心提示：本模擬引擎專為 "store_products" 表設計。請仔細檢查拼寫、空格及單引號，寫法應符合手冊規範。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            statusLabel.innerHTML = `<span class="text-emerald-600 font-bold">✅ 執行成功 (回傳 ${res.rows.length} 筆記錄)</span>`;
+            
+            if (res.rows.length === 0) {
+                resultBox.innerHTML = `
+                    <div class="p-4 bg-amber-50 border border-amber-100 rounded-2xl text-xs space-y-1 font-sans">
+                        <p class="text-amber-700 font-bold">查詢執行成功，但符合條件的記錄數為 0。</p>
+                        <p class="text-[10px] text-slate-400">這代表目前貨架上沒有任何商品能通過你設置的 WHERE過濾網條件。</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let headersHTML = '';
+            res.columns.forEach(col => {
+                headersHTML += `<th class="px-3 py-2 text-left font-bold text-slate-500 uppercase tracking-wider">${col}</th>`;
+            });
+
+            let rowsHTML = '';
+            res.rows.forEach(row => {
+                rowsHTML += `<tr class="hover:bg-slate-50 border-b border-slate-100">`;
+                res.columns.forEach(col => {
+                    let val = row[col];
+                    if (val === null || val === undefined) val = '<span class="text-slate-300 italic">NULL</span>';
+                    rowsHTML += `<td class="px-3 py-2 text-slate-700 font-medium">${val}</td>`;
+                });
+                rowsHTML += `</tr>`;
+            });
+
+            resultBox.innerHTML = `
+                <div class="overflow-x-auto border border-slate-200 rounded-2xl shadow-sm">
+                    <table class="min-w-full divide-y divide-slate-200 text-xs code-font">
+                        <thead class="bg-slate-50">
+                            <tr>${headersHTML}</tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-slate-100">
+                            ${rowsHTML}
+                        </tbody>
+                    </table>
+                </div>
+            `;
+        }
+
+        function clearSandboxConsole() {
+            document.getElementById('sqlConsoleInput').value = '';
+            document.getElementById('sqlResultStatus').innerHTML = '等待查詢指令...';
+            document.getElementById('sqlResultContent').innerHTML = `<p class="text-xs text-slate-400 italic">在上方輸入或選擇 SQL 指令，點擊「執行查詢」後在此查看動態回傳的表格資料。</p>`;
+        }
+
+        function loadConsoleTemplate(id) {
+            document.getElementById('sqlConsoleInput').value = sandboxTemplates[id];
+            executeSandboxSQL();
+        }
+
+        // Custom simulated JS SQL database engine
+        function runSQLMockEngine(queryStr) {
+            let sql = queryStr.trim().replace(/\s+/g, ' ');
+            // Standard format Regex match
+            // SELECT {cols} FROM {table} [WHERE {where}] [ORDER BY {order}]
+            let selectMatch = sql.match(/^SELECT\s+(.+?)\s+FROM\s+(\w+)(?:\s+WHERE\s+(.+?))?(?:\s+ORDER\s+BY\s+(.+?))?$/i);
+            if (!selectMatch) {
+                return { error: "語法結構錯誤。請確保語法為：SELECT [欄位/*] FROM [資料表] [WHERE 條件] [ORDER BY 排序];" };
+            }
+
+            let selectCols = selectMatch[1].trim();
+            let tableName = selectMatch[2].trim();
+            let whereClause = selectMatch[3] ? selectMatch[3].trim() : null;
+            let orderByClause = selectMatch[4] ? selectMatch[4].trim() : null;
+
+            if (tableName.toLowerCase() !== 'store_products') {
+                return { error: `資料表 "${tableName}" 不存在。本學習系統內唯一的表格為 "store_products"。<br>請將表名修改為 "store_products"。` };
+            }
+
+            let dataset = [...storeProducts]; // clone
+
+            // 1. Apply WHERE filter
+            if (whereClause) {
                 try {
-                    await initAuth();
-                    onAuthStateChanged(auth, (user) => {
-                        if (user) {
-                            currentUser = user;
-                            badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 雲端連線中`;
-                            badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-50 text-emerald-600 flex items-center gap-1";
-                            
-                            syncStudentIdentity();
-                            startScoresListener();
-                        }
+                    dataset = dataset.filter(row => {
+                        return evaluateWhereClause(row, whereClause);
                     });
                 } catch (e) {
-                    console.error("Auth error:", e);
-                    badge.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span> 雲端離線`;
-                    badge.className = "text-[10px] font-bold px-2 py-0.5 rounded-full bg-rose-50 text-rose-600 flex items-center gap-1";
+                    return { error: `WHERE 篩選條件 analysis 失敗: ${e.message}` };
                 }
-            } else {
-                document.getElementById('studentCloudSyncAlert').innerHTML = `
-                    <span class="flex items-center gap-1 font-bold text-amber-800">
-                        ⚠️ 目前為「單機離線」模式。因本機環境無 Firebase 密鑰，作答進度將暫存於本機。
-                    </span>
-                    <span class="text-[10px] bg-amber-100 px-2 py-0.5 rounded text-amber-700">單機運作中</span>
-                `;
-                document.getElementById('studentCloudSyncAlert').className = "bg-amber-50 text-amber-800 p-4 rounded-2xl border border-amber-100 flex items-center justify-between text-xs";
-                updateMockLeaderboard();
             }
-        });
+
+            // 2. Select columns & Aggregations
+            let resultRows = [];
+            let columns = [];
+            let aggFuncs = ['sum', 'avg', 'max', 'min', 'count'];
+            let colItems = splitColumnsSafely(selectCols);
+
+            let hasAggregator = colItems.some(col => {
+                let lower = col.toLowerCase();
+                return aggFuncs.some(f => lower.startsWith(f + '('));
+            });
+
+            if (hasAggregator) {
+                let rowResult = {};
+                for (let col of colItems) {
+                    let alias = col;
+                    let expr = col;
+                    let asMatch = col.match(/(.+?)\s+AS\s+['"“]?(.*?)['"”]?$/i);
+                    if (asMatch) {
+                        expr = asMatch[1].trim();
+                        alias = asMatch[2].trim();
+                    }
+
+                    let exprLower = expr.toLowerCase();
+                    if (exprLower.startsWith('sum(')) {
+                        let field = expr.match(/\((.*?)\)/)[1].trim();
+                        if (field === '*') return { error: "SUM() 函數不支援星號通配符。請輸入具體數值欄位如 SUM(stock)" };
+                        let totalSum = dataset.reduce((acc, r) => acc + (Number(r[field]) || 0), 0);
+                        rowResult[alias] = totalSum;
+                    } else if (exprLower.startsWith('avg(')) {
+                        let field = expr.match(/\((.*?)\)/)[1].trim();
+                        if (field === '*') return { error: "AVG() 函數不支援星號通配符。請輸入具體數值欄位如 AVG(price)" };
+                        let totalSum = dataset.reduce((acc, r) => acc + (Number(r[field]) || 0), 0);
+                        rowResult[alias] = dataset.length > 0 ? parseFloat((totalSum / dataset.length).toFixed(1)) : 0;
+                    } else if (exprLower.startsWith('max(')) {
+                        let field = expr.match(/\((.*?)\)/)[1].trim();
+                        let maxVal = dataset.length > 0 ? Math.max(...dataset.map(r => Number(r[field]) || 0)) : 0;
+                        rowResult[alias] = maxVal;
+                    } else if (exprLower.startsWith('min(')) {
+                        let field = expr.match(/\((.*?)\)/)[1].trim();
+                        let minVal = dataset.length > 0 ? Math.min(...dataset.map(r => Number(r[field]) || 0)) : 0;
+                        rowResult[alias] = minVal;
+                    } else if (exprLower.startsWith('count(')) {
+                        rowResult[alias] = dataset.length;
+                    } else {
+                        return { error: `不支援將非統計欄位 "${expr}" 與聚合統計函數混合在同一行 SELECT 中。` };
+                    }
+                }
+                resultRows.push(rowResult);
+                columns = Object.keys(rowResult);
+            } else {
+                for (let row of dataset) {
+                    let rowResult = {};
+                    if (selectCols === '*') {
+                        rowResult = { ...row };
+                    } else {
+                        for (let col of colItems) {
+                            let alias = col;
+                            let expr = col;
+                            let asMatch = col.match(/(.+?)\s+AS\s+['"“]?(.*?)['"”]?$/i);
+                            if (asMatch) {
+                                expr = asMatch[1].trim();
+                                alias = asMatch[2].trim();
+                            }
+
+                            if (expr.includes('-') || expr.includes('+') || expr.includes('*') || expr.includes('/')) {
+                                let mathExpr = expr
+                                    .replace(/price/g, row.price)
+                                    .replace(/stock/g, row.stock)
+                                    .replace(/id/g, row.id);
+                                try {
+                                    rowResult[alias] = eval(mathExpr);
+                                } catch (err) {
+                                    rowResult[alias] = "MATH_ERR";
+                                }
+                            } else {
+                                if (row[expr] !== undefined) {
+                                    rowResult[alias] = row[expr];
+                                } else {
+                                    return { error: `資料表內不存在名為 "${expr}" 的欄位。請核對左側小食部屬性名稱。` };
+                                }
+                            }
+                        }
+                    }
+                    resultRows.push(rowResult);
+                }
+                columns = Object.keys(resultRows[0] || {});
+            }
+
+            if (orderByClause && !hasAggregator) {
+                let orderItems = orderByClause.split(',').map(item => item.trim());
+                resultRows.sort((a, b) => {
+                    for (let orderItem of orderItems) {
+                        let match = orderItem.match(/^(\w+)(?:\s+(asc|desc))?$/i);
+                        if (!match) continue;
+                        let col = match[1];
+                        let dir = match[2] ? match[2].toLowerCase() : 'asc';
+                        let valA = a[col];
+                        let valB = b[col];
+
+                        if (valA === undefined || valB === undefined) continue;
+
+                        if (typeof valA === 'number' && typeof valB === 'number') {
+                            if (valA !== valB) {
+                                return dir === 'asc' ? valA - valB : valB - valA;
+                            }
+                        } else {
+                            let strA = String(valA);
+                            let strB = String(valB);
+                            if (strA !== strB) {
+                                return dir === 'asc' ? strA.localeCompare(strB, 'zh-Hant') : strB.localeCompare(strA, 'zh-Hant');
+                            }
+                        }
+                    }
+                    return 0;
+                });
+            }
+
+            return { columns, rows: resultRows };
+        }
+
+        function splitColumnsSafely(colsStr) {
+            return colsStr.split(',').map(c => c.trim());
+        }
+
+        function evaluateWhereClause(row, whereClause) {
+            let orParts = whereClause.split(/\s+OR\s+/i);
+            return orParts.some(orPart => {
+                let andParts = orPart.split(/\s+AND\s+/i);
+                return andParts.every(andPart => {
+                    return evaluateSingleCondition(row, andPart);
+                });
+            });
+        }
+
+        function evaluateSingleCondition(row, cond) {
+            cond = cond.trim();
+            
+            let betweenMatch = cond.match(/^(\w+)\s+BETWEEN\s+(\d+|'.+?')\s+AND\s+(\d+|'.+?')$/i);
+            if (betweenMatch) {
+                let field = betweenMatch[1];
+                let rowVal = Number(row[field]);
+                let low = Number(betweenMatch[2].replace(/'/g, ''));
+                let high = Number(betweenMatch[3].replace(/'/g, ''));
+                if (isNaN(rowVal)) throw new Error(`欄位 "${field}" 不是數值類型，不適用於 BETWEEN。`);
+                return rowVal >= low && rowVal <= high;
+            }
+
+            let opMatch = cond.match(/^(\w+)\s*(=|<>|!=|>=|<=|>|<|LIKE)\s*(.+)$/i);
+            if (!opMatch) {
+                throw new Error(`無法解析運算式 "${cond}"。請確保運算符為 =、<>、<=、>=、LIKE 等。`);
+            }
+
+            let field = opMatch[1].trim();
+            let op = opMatch[2].toUpperCase();
+            let rawTarget = opMatch[3].trim();
+
+            let rowVal = row[field];
+            if (rowVal === undefined) {
+                throw new Error(`資料表內沒有欄位名為 "${field}"`);
+            }
+
+            let targetVal;
+            if (rawTarget.startsWith("'") && rawTarget.endsWith("'")) {
+                targetVal = rawTarget.slice(1, -1);
+            } else if (rawTarget.startsWith('"') && rawTarget.endsWith('"')) {
+                targetVal = rawTarget.slice(1, -1);
+            } else {
+                targetVal = Number(rawTarget);
+            }
+
+            if (op === '=') {
+                return String(rowVal).toLowerCase() === String(targetVal).toLowerCase();
+            } else if (op === '<>' || op === '!=') {
+                return String(rowVal).toLowerCase() !== String(targetVal).toLowerCase();
+            } else if (op === '>=') {
+                return Number(rowVal) >= Number(targetVal);
+            } else if (op === '<=') {
+                return Number(rowVal) <= Number(targetVal);
+            } else if (op === '>') {
+                return Number(rowVal) > Number(targetVal);
+            } else if (op === '<') {
+                return Number(rowVal) < Number(targetVal);
+            } else if (op === 'LIKE') {
+                let escaped = targetVal.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                let regexStr = '^' + escaped.replace(/%/g, '.*').replace(/_/g, '.') + '$';
+                let regex = new RegExp(regexStr, 'i');
+                return regex.test(String(rowVal));
+            }
+
+            return false;
+        }
+
+        // ==================== QUIZ CONTROLLER ENGINE ====================
+        function startSelectedQuiz() {
+            const chapSelect = document.getElementById('quizChapterSelect');
+            const chapId = parseInt(chapSelect.value);
+            startQuizWithChapter(chapId);
+        }
+
+        function startQuizWithChapter(chapId) {
+            activeQuizChapter = chapId;
+            activeQuizQuestions = JSON.parse(JSON.stringify(quizData[chapId]));
+            currentQuestionIdx = 0;
+            quizScore = 0;
+
+            document.getElementById('quizIntroContainer').classList.add('hidden');
+            document.getElementById('quizActiveContainer').classList.remove('hidden');
+
+            renderQuizQuestion();
+        }
+
+        function renderQuizQuestion() {
+            const q = activeQuizQuestions[currentQuestionIdx];
+            typingIncorrectAttempts = 0; 
+            
+            document.getElementById('quizProgressNum').innerText = `問題：${currentQuestionIdx + 1} / 20`;
+            document.getElementById('quizChapterName').innerText = `第 ${activeQuizChapter} 章自測`;
+            document.getElementById('quizScoreText').innerText = `答對：${quizScore} 題`;
+            document.getElementById('quizQuestionText').innerText = `${currentQuestionIdx + 1}. ${q.q}`;
+
+            const codeBox = document.getElementById('quizCodeContainer');
+            if (q.code) {
+                codeBox.classList.remove('hidden');
+                document.getElementById('quizCodeText').innerText = q.code;
+            } else {
+                codeBox.classList.add('hidden');
+            }
+
+            document.getElementById('hintMessage').classList.add('hidden');
+            document.getElementById('rationaleContainer').classList.add('hidden');
+            document.getElementById('nextQuestionBtn').classList.add('hidden');
+            document.getElementById('quizShowAnswerBtn').classList.add('hidden');
+            document.getElementById('quizTypingOutputConsole').classList.add('hidden');
+
+            const bodyContainer = document.getElementById('quizBodyContainer');
+            bodyContainer.innerHTML = '';
+
+            if (q.isTyping) {
+                const div = document.createElement('div');
+                div.className = "space-y-3 p-4 bg-slate-900 rounded-3xl border border-slate-800 shadow-md";
+                div.innerHTML = `
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-400">
+                        <span>⌨️ 請在下方編寫 SQL 查詢：</span>
+                        <span class="text-amber-400">表格名稱: store_products</span>
+                    </div>
+                    <textarea id="quizSqlTextInput" class="w-full min-h-[100px] p-4 bg-slate-950 text-emerald-400 font-mono text-sm rounded-2xl border border-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-500 shadow-inner" placeholder="SELECT ... FROM store_products WHERE ...;"></textarea>
+                    <button onclick="verifyStudentTypingSQL()" class="w-full py-3 px-6 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-2xl transition-all shadow-md shadow-primary-500/10 text-sm">
+                        驗證並執行 SQL 語法 (Run & Verify)
+                    </button>
+                `;
+                bodyContainer.appendChild(div);
+                
+                setTimeout(() => {
+                    const textInput = document.getElementById('quizSqlTextInput');
+                    if (textInput) textInput.focus();
+                }, 50);
+
+            } else {
+                const grid = document.createElement('div');
+                grid.className = "grid grid-cols-1 md:grid-cols-2 gap-4";
+                
+                q.options.forEach((opt, idx) => {
+                    const btn = document.createElement('button');
+                    btn.className = "text-left text-xs md:text-sm font-semibold p-4 rounded-2xl border border-slate-200 bg-white hover:bg-slate-50 active:bg-slate-100 transition-all shadow-sm flex items-start gap-2 focus:outline-none";
+                    btn.onclick = () => selectQuizAnswer(idx, btn);
+                    btn.innerHTML = `
+                        <span class="w-5 h-5 flex-shrink-0 rounded-full bg-slate-100 text-slate-500 font-bold text-[10px] flex items-center justify-center">${String.fromCharCode(65 + idx)}</span>
+                        <span class="flex-grow">${opt}</span>
+                    `;
+                    grid.appendChild(btn);
+                });
+                bodyContainer.appendChild(grid);
+            }
+        }
+
+        function showQuizHint() {
+            const q = activeQuizQuestions[currentQuestionIdx];
+            const hintBox = document.getElementById('hintMessage');
+            hintBox.innerText = q.hint;
+            hintBox.classList.remove('hidden');
+        }
+
+        function selectQuizAnswer(selectedIdx, selectedBtn) {
+            const q = activeQuizQuestions[currentQuestionIdx];
+            const bodyContainer = document.getElementById('quizBodyContainer');
+            const btns = bodyContainer.querySelectorAll('button');
+
+            btns.forEach(btn => {
+                btn.disabled = true;
+                btn.onclick = null; 
+            });
+
+            const isCorrect = (selectedIdx === q.correct);
+            
+            if (isCorrect) {
+                quizScore++;
+                selectedBtn.className = "text-left text-xs md:text-sm font-bold p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-800 transition-all shadow-sm flex items-start gap-2 focus:outline-none";
+                selectedBtn.querySelector('span').className = "w-5 h-5 flex-shrink-0 rounded-full bg-emerald-500 text-white font-bold text-[10px] flex items-center justify-center";
+            } else {
+                selectedBtn.className = "text-left text-xs md:text-sm font-semibold p-4 rounded-2xl border-2 border-rose-500 bg-rose-50 text-rose-800 transition-all shadow-sm flex items-start gap-2 focus:outline-none";
+                selectedBtn.querySelector('span').className = "w-5 h-5 flex-shrink-0 rounded-full bg-rose-500 text-white font-bold text-[10px] flex items-center justify-center";
+                
+                btns[q.correct].className = "text-left text-xs md:text-sm font-bold p-4 rounded-2xl border-2 border-emerald-500 bg-emerald-50 text-emerald-800 transition-all shadow-sm flex items-start gap-2 focus:outline-none";
+                btns[q.correct].querySelector('span').className = "w-5 h-5 flex-shrink-0 rounded-full bg-emerald-500 text-white font-bold text-[10px] flex items-center justify-center";
+            }
+
+            userAnswersLog.push({
+                chapter: activeQuizChapter,
+                questionIdx: currentQuestionIdx,
+                isCorrect: isCorrect,
+                correctOption: q.correct,
+                selectedOption: selectedIdx
+            });
+
+            const rationaleBox = document.getElementById('rationaleContainer');
+            const rationaleTitle = document.getElementById('rationaleTitle');
+            const rationaleText = document.getElementById('rationaleText');
+            
+            rationaleTitle.innerHTML = `
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+                數據解題理據 (Explanation & Rationale)
+            `;
+            rationaleText.innerText = q.rationale[selectedIdx];
+            
+            rationaleBox.className = isCorrect ? "bg-emerald-50 text-emerald-800 p-5 rounded-3xl border border-emerald-100 shadow-sm space-y-2 animate-fade-in" : "bg-amber-50 text-amber-800 p-5 rounded-3xl border border-amber-100 shadow-sm space-y-2 animate-fade-in";
+            rationaleBox.classList.remove('hidden');
+
+            document.getElementById('nextQuestionBtn').classList.remove('hidden');
+            document.getElementById('quizScoreText').innerText = `答對：${quizScore} 題`;
+        }
+
+        function verifyStudentTypingSQL() {
+            const q = activeQuizQuestions[currentQuestionIdx];
+            const userInputVal = document.getElementById('quizSqlTextInput').value.trim();
+            const rationaleBox = document.getElementById('rationaleContainer');
+            const rationaleTitle = document.getElementById('rationaleTitle');
+            const rationaleText = document.getElementById('rationaleText');
+            const outputConsole = document.getElementById('quizTypingOutputConsole');
+            const outputTable = document.getElementById('quizTypingOutputTable');
+
+            if (!userInputVal) {
+                alert('請先在輸入框中編寫你的 SQL 指令。');
+                return;
+            }
+
+            const checkRes = verifySQLAnswer(userInputVal, q.correctSQL);
+
+            let cleanQ = userInputVal.replace(/;$/, '').trim();
+            let userRun = runSQLMockEngine(cleanQ);
+
+            if (!userRun.error && userRun.rows.length > 0) {
+                outputConsole.classList.remove('hidden');
+                let headersHTML = userRun.columns.map(col => `<th class="px-2 py-1 text-left bg-slate-50 font-bold border-b border-slate-100">${col}</th>`).join('');
+                let rowsHTML = userRun.rows.map(row => {
+                    let td = userRun.columns.map(col => `<td class="px-2 py-1 text-slate-600 border-b border-slate-100">${row[col]}</td>`).join('');
+                    return `<tr>${td}</tr>`;
+                }).join('');
+                outputTable.innerHTML = `<table class="min-w-full text-[10px] border-collapse"><thead><tr>${headersHTML}</tr></thead><tbody>${rowsHTML}</tbody></table>`;
+            } else if (userRun.error) {
+                outputConsole.classList.add('hidden');
+            } else {
+                outputTable.innerHTML = `<p class="text-[10px] text-amber-600 italic">指令執行成功，但回傳了 0 筆符合記錄。</p>`;
+                outputConsole.classList.remove('hidden');
+            }
+
+            if (checkRes.correct) {
+                quizScore++;
+                document.getElementById('quizScoreText').innerText = `答對：${quizScore} 題`;
+
+                document.getElementById('quizSqlTextInput').disabled = true;
+                document.getElementById('quizBodyContainer').querySelector('button').disabled = true;
+
+                rationaleTitle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-emerald-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-emerald-700 font-bold">答對了！過關！</span>
+                `;
+                rationaleText.innerText = `${checkRes.msg}\n\n正確標準寫法參考：\n${q.correctSQL}`;
+                rationaleBox.className = "bg-emerald-50 text-emerald-800 p-5 rounded-3xl border border-emerald-100 shadow-sm space-y-2 animate-fade-in";
+                rationaleBox.classList.remove('hidden');
+
+                document.getElementById('nextQuestionBtn').classList.remove('hidden');
+                document.getElementById('quizShowAnswerBtn').classList.add('hidden');
+
+                userAnswersLog.push({
+                    chapter: activeQuizChapter,
+                    questionIdx: currentQuestionIdx,
+                    isCorrect: true
+                });
+
+            } else {
+                typingIncorrectAttempts++;
+                rationaleTitle.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-rose-600" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                    </svg>
+                    <span class="text-rose-700 font-bold">答案未盡正確，請再試試！</span>
+                `;
+                rationaleText.innerHTML = `<span class="font-semibold text-rose-800">${checkRes.msg}</span><br><br>請閱讀最下方的思考提示（Hint）重新調整你的 SQL 寫法。`;
+                rationaleBox.className = "bg-rose-50 text-rose-800 p-5 rounded-3xl border border-rose-100 shadow-sm space-y-2 animate-fade-in";
+                rationaleBox.classList.remove('hidden');
+
+                if (typingIncorrectAttempts >= 1) {
+                    document.getElementById('quizShowAnswerBtn').classList.remove('hidden');
+                }
+            }
+        }
+
+        function showQuizTypingAnswer() {
+            const q = activeQuizQuestions[currentQuestionIdx];
+            const txtInput = document.getElementById('quizSqlTextInput');
+            if (txtInput) {
+                txtInput.value = q.correctSQL;
+                alert('已將正確參考答案填入，請點擊「驗證並執行 SQL 語法」按鈕即可過關。');
+            }
+        }
+
+        function verifySQLAnswer(userSQL, correctSQL) {
+            let u = userSQL.trim().replace(/;$/, '').trim();
+            let c = correctSQL.trim().replace(/;$/, '').trim();
+            
+            let resU = runSQLMockEngine(u);
+            let resC = runSQLMockEngine(c);
+            
+            if (resU.error) {
+                return { correct: false, msg: `執行時語法分析出錯：${resU.error}` };
+            }
+            
+            if (resU.columns.length !== resC.columns.length) {
+                return { correct: false, msg: `選取的欄位數量不符。正確解答應回傳 ${resC.columns.length} 個欄位，而你回傳了 ${resU.columns.length} 個。` };
+            }
+            
+            if (resU.rows.length !== resC.rows.length) {
+                return { correct: false, msg: `篩選出的商品記錄筆數不符。預期有 ${resC.rows.length} 筆商品，而你篩選出了 ${resU.rows.length} 筆。` };
+            }
+            
+            for (let i = 0; i < resC.rows.length; i++) {
+                let rowC = resC.rows[i];
+                let rowU = resU.rows[i]; 
+                
+                if (!rowU) {
+                    return { correct: false, msg: "回傳的欄位內容與預期解答不符，請檢查你的 WHERE 過濾網條件。" };
+                }
+                
+                for (let j = 0; j < resC.columns.length; j++) {
+                    let colC = resC.columns[j];
+                    let colU = resU.columns[j];
+                    
+                    let valC = String(rowC[colC]).trim().toLowerCase();
+                    let valU = String(rowU[colU]).trim().toLowerCase();
+                    
+                    if (valC !== valU) {
+                        if (!isNaN(valC) && !isNaN(valU)) {
+                            if (Math.abs(Number(valC) - Number(valU)) > 0.05) {
+                                return { correct: false, msg: `數據計算不符。預期數值為 ${valC}，而你算出了 ${valU}。` };
+                            }
+                        } else {
+                            return { correct: false, msg: `數據結果不符。預期數值為 "${valC}"，而你回傳了 "${valU}"。` };
+                        }
+                    }
+                }
+            }
+            
+            return { correct: true, msg: "👍 完美！你的 SQL 指令成功跑出完全正確的結果集！" };
+        }
+
+        function nextQuizQuestion() {
+            currentQuestionIdx++;
+            if (currentQuestionIdx < 20) {
+                renderQuizQuestion();
+            } else {
+                finishQuizSession();
+            }
+        }
+
+        function finishQuizSession() {
+            userCompletedGrades[activeQuizChapter] = quizScore;
+            updateTotalProgress();
+            updateReportTab();
+
+            // Sync score asynchronously
+            syncScoreToCloud(activeQuizChapter, quizScore);
+
+            const activeContainer = document.getElementById('quizActiveContainer');
+            activeContainer.innerHTML = `
+                <div class="py-10 flex flex-col items-center text-center space-y-6 animate-fade-in">
+                    <div class="w-20 h-20 bg-primary-100 text-primary-500 rounded-full flex items-center justify-center shadow-lg shadow-primary-500/10 animate-bounce">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-bold text-slate-800">恭喜你！完成「第 ${activeQuizChapter} 章」實作測驗</h3>
+                        <p class="text-sm text-slate-500 mt-2">實習生：<span class="font-bold text-slate-800">${document.getElementById('studentName').value}</span> | 班別：<span class="font-bold text-slate-800">${document.getElementById('studentClass').value}</span></p>
+                    </div>
+
+                    <div class="bg-slate-50 p-6 rounded-3xl border border-slate-100 max-w-sm w-full space-y-2">
+                        <div class="text-xs text-slate-400 font-bold tracking-wider">本章總得分</div>
+                        <div class="text-4xl font-black text-primary-500">${quizScore} <span class="text-lg text-slate-400 font-bold">/ 20 題</span></div>
+                        <div class="text-xs font-bold ${quizScore >= 16 ? 'text-emerald-600' : quizScore >= 10 ? 'text-amber-600' : 'text-rose-500'}">
+                            ${quizScore >= 16 ? '評級：優秀管理員 (Excellent)' : quizScore >= 10 ? '評級：合格助理 (Satisfactory)' : '評級：需重新補考 (Needs Practice)'}
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 w-full max-w-xs">
+                        <button onclick="switchTab('report')" class="flex-1 py-3 px-4 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-xl text-xs transition-colors shadow-lg shadow-primary-500/15">
+                            查看學習與複製報告
+                        </button>
+                        <button onclick="resetActiveQuizView()" class="flex-1 py-3 px-4 bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold rounded-xl text-xs transition-colors">
+                            重測 / 測其他
+                        </button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function resetActiveQuizView() {
+            document.getElementById('quizIntroContainer').classList.remove('hidden');
+            document.getElementById('quizActiveContainer').classList.add('hidden');
+            
+            document.getElementById('quizActiveContainer').innerHTML = `
+                <div class="flex items-center justify-between text-xs font-bold text-slate-500 bg-slate-50 p-3 rounded-2xl">
+                    <span id="quizProgressNum">問題：1 / 20</span>
+                    <div class="flex items-center gap-4">
+                        <span id="quizChapterName" class="text-primary-600 bg-primary-50 px-2 py-0.5 rounded-full">第一章</span>
+                        <span id="quizScoreText">答對：0 題</span>
+                    </div>
+                </div>
+                <div class="bg-gradient-to-br from-slate-50 to-slate-100/50 p-6 rounded-3xl border border-slate-100 shadow-inner">
+                    <p class="text-base font-bold text-slate-800 leading-relaxed mb-4" id="quizQuestionText">正在載入問題...</p>
+                    <div id="quizCodeContainer" class="hidden bg-slate-900 text-amber-400 p-4 rounded-2xl font-mono text-sm shadow-md overflow-x-auto border border-slate-800 mb-4">
+                        <code id="quizCodeText"></code>
+                    </div>
+                </div>
+                <div id="quizBodyContainer"></div>
+                <div class="flex flex-col md:flex-row justify-between items-stretch md:items-center gap-4 pt-2">
+                    <div class="flex gap-2">
+                        <button onclick="showQuizHint()" class="text-xs font-bold text-amber-600 bg-amber-50 hover:bg-amber-100 py-2.5 px-4 rounded-xl border border-amber-200 transition-colors flex items-center justify-center gap-1 select-none">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                            </svg>
+                            思考提示 (Hint)
+                        </button>
+                        <button id="quizShowAnswerBtn" onclick="showQuizTypingAnswer()" class="hidden text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 py-2.5 px-4 rounded-xl border border-blue-200 transition-colors select-none">
+                            顯示參考答案
+                        </button>
+                    </div>
+                    <span id="hintMessage" class="hidden text-xs text-amber-700 bg-amber-50 px-4 py-2.5 rounded-xl border border-amber-100 md:max-w-md italic flex-grow"></span>
+                    <button id="nextQuestionBtn" onclick="nextQuizQuestion()" class="hidden text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 py-2.5 px-6 rounded-xl transition-colors text-center shadow-md select-none">
+                        下一題 &rarr;
+                    </button>
+                </div>
+                <div id="rationaleContainer" class="hidden p-5 rounded-3xl border shadow-sm space-y-2">
+                    <h4 class="text-sm font-bold flex items-center gap-1" id="rationaleTitle"></h4>
+                    <p class="text-xs leading-relaxed" id="rationaleText"></p>
+                    <div id="quizTypingOutputConsole" class="hidden mt-2 border border-slate-200 rounded-xl overflow-hidden text-[11px] code-font">
+                        <div class="bg-slate-100 px-3 py-1.5 border-b border-slate-200 text-[10px] font-bold text-slate-500">你的 SQL 回傳數據結果：</div>
+                        <div class="p-3 bg-white max-h-[140px] overflow-auto" id="quizTypingOutputTable"></div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function copyInternshipReport() {
+            const name = document.getElementById('studentName').value;
+            const sClass = document.getElementById('studentClass').value;
+            
+            let scoresText = '';
+            let totalDone = 0;
+            let sumScore = 0;
+
+            for (let i = 1; i <= 5; i++) {
+                const score = userCompletedGrades[i];
+                if (score !== null) {
+                    scoresText += `  - 第一章：${score} / 20 題 (${Math.round(score/20*100)}%)\n`;
+                    totalDone++;
+                    sumScore += score;
+                } else {
+                    scoresText += `  - 第一章：未完成\n`;
+                }
+            }
+
+            const overallPct = totalDone > 0 ? Math.round((sumScore / (totalDone * 20)) * 100) : 0;
+            const rankBadge = document.getElementById('rankBadge').innerText;
+
+            let reportBody = `======================================\n`;
+            reportBody += `SQL 數據庫探險記：小食部管理員實習評核報告\n`;
+            reportBody += `======================================\n`;
+            reportBody += `實習生姓名：${name}\n`;
+            reportBody += `實習班別：${sClass}\n`;
+            reportBody += `目前職位：${rankBadge}\n`;
+            reportBody += `溫習進度：已完成 ${totalDone} / 5 個章節測驗\n`;
+            reportBody += `平均正確率：${overallPct}%\n\n`;
+            reportBody += `【分章自測詳細成績】\n${scoresText}\n`;
+            reportBody += `【智慧管理診斷與建議】\n`;
+            
+            let hasWeakness = false;
+            for (let i = 1; i <= 5; i++) {
+                if (userCompletedGrades[i] !== null && userCompletedGrades[i] < 16) {
+                    hasWeakness = true;
+                    if (i === 1) reportBody += `  * 建議加強 SELECT/FROM 的多重欄位逗號分割與結構。\n`;
+                    if (i === 2) reportBody += `  * 建議多理解 WHERE 中 AND/OR 的邏輯差別及 BETWEEN 區間性質。\n`;
+                    if (i === 3) reportBody += `  * 建議多複習 LIKE 模糊匹配中 % 和 _ 的字數限制魔法。\n`;
+                    if (i === 4) reportBody += `  * 建議複習 SUM、AVG 及 AS 欄位別名、乘除數學符號的應用。\n`;
+                    if (i === 5) reportBody += `  * 建議釐清 ORDER BY 多級排序及升降序預設規則。\n`;
+                }
+            }
+            if (!hasWeakness && totalDone > 0) {
+                reportBody += `  * 表現卓越！所有章節均答對 16 題以上，實力非凡！\n`;
+            } else if (totalDone === 0) {
+                reportBody += `  * 尚未完成任何測驗，請立即開始您的實習自測！\n`;
+            }
+
+            reportBody += `\n======================================\n`;
+            reportBody += `文理書院（香港）中二級普通電腦科 \n`;
+
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = reportBody;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    alert('🎉 評核報告已成功複製到剪貼簿！你可以直接貼上到 Classroom、Teams 或 WhatsApp 提交給老師！');
+                } else {
+                    alert('複製失敗，請手動選取文字複製。');
+                }
+            } catch (err) {
+                alert('複製失敗，請手動選取文字複製。');
+            }
+            document.body.removeChild(tempTextArea);
+        }
 
         // ==================== CLOUD DATABASE SYNCING ====================
         async function syncStudentIdentity() {
@@ -1091,9 +1967,8 @@
                 document.getElementById('teacherConsoleContent').classList.remove('hidden');
                 renderTeacherTable();
                 analyzeWeaknessesDynamically();
-                showNotification('驗證成功！歡迎使用教師主控台。', 'success');
             } else {
-                showNotification('教師管理密碼不正確！請重新輸入。', 'error');
+                alert('教師管理密碼不正確！請重新輸入。');
             }
         }
 
@@ -1102,7 +1977,6 @@
             document.getElementById('teacherPasswordInput').value = '';
             document.getElementById('teacherAuthGate').classList.remove('hidden');
             document.getElementById('teacherConsoleContent').classList.add('hidden');
-            showNotification('您已成功退出教師主控台。');
         }
 
         function renderTeacherTable() {
@@ -1242,7 +2116,6 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showNotification('CSV成績報表導出成功！', 'success');
         }
 
         function escapeHTML(str) {
@@ -1258,6 +2131,7 @@
         window.executeSandboxSQL = executeSandboxSQL;
         window.clearSandboxConsole = clearSandboxConsole;
         window.loadConsoleTemplate = loadConsoleTemplate;
+        window.startSelectedQuiz;
         window.startSelectedQuiz = startSelectedQuiz;
         window.startQuizWithChapter = startQuizWithChapter;
         window.showQuizHint = showQuizHint;
@@ -1274,8 +2148,6 @@
         window.populateDatabaseTable = populateDatabaseTable;
         window.updateTotalProgress = updateTotalProgress;
         window.updateReportTab = updateReportTab;
-        window.showNotification = showNotification;
-        window.shuffleQuizOptions = shuffleQuizOptions;
 
         // Populate database table on initial load
         populateDatabaseTable();
